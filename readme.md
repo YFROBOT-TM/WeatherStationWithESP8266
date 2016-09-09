@@ -5,6 +5,8 @@
 
 演示视频：[http://v.youku.com/v_show/id_XMTcxNzY3MzQ4NA==.html](http://v.youku.com/v_show/id_XMTcxNzY3MzQ4NA==.html)
 
+电路连接：[weatherStation](https://github.com/YFROBOT-TM/WeatherStationWithESP8266/blob/master/Schematic/WeatherStation.png)
+
 ###Using library
 * [Universal 8bit Graphics Library](https://github.com/adafruit/Adafruit_SSD1306)
 * [arduino Json library](https://github.com/bblanchon/ArduinoJson)
