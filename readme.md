@@ -8,7 +8,7 @@
 电路连接：![weatherStation](https://raw.githubusercontent.com/YFROBOT-TM/WeatherStationWithESP8266/master/Schematic/WeatherStation.png)
 
 ###Using library
-* [Universal 8bit Graphics Library](https://github.com/adafruit/Adafruit_SSD1306)
+* [Adafruit SSD1306 Library](https://github.com/adafruit/Adafruit_SSD1306)
 * [arduino Json library](https://github.com/bblanchon/ArduinoJson)
 * [Simple Timer library](http://playground.arduino.cc/Code/SimpleTimer)
 
