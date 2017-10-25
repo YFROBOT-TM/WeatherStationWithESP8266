@@ -8,7 +8,7 @@
   city id list download ：http://www.thinkpage.cn/data/thinkpage_cities.zip
 
   Use the library:
-  Universal 8bit Graphics Library, https://github.com/olikraus/u8glib/
+  SSD1306 oled driver library, https://github.com/adafruit/Adafruit_SSD1306
   arduino Json library, https://github.com/bblanchon/ArduinoJson
   Simple Timer library, http://playground.arduino.cc/Code/SimpleTimer
   
@@ -123,7 +123,7 @@ void drawlogo() {
   // graphic commands to redraw the complete screen should be placed here
   display.clearDisplay();
   drawWarning("YFROBOT");
-  display.drawXBitmap(20 , (SSD1306_LCDHEIGHT - 16 - logoHeight) / 2 + 16,
+  display.drawBitmap(20 , (SSD1306_LCDHEIGHT - 16 - logoHeight) / 2 + 16,
                       logo, logoWidth, logoHeight, 1);
   display.display();
 }
@@ -132,17 +132,17 @@ void drawlogo() {
 void drawWifi(int x) {
   // graphic commands to redraw the complete screen should be placed here
   if (x >= wifiLen) {
-    display.drawXBitmap(96, 16, wifi[wifiLen - 1], wifiWidth, wifiHeight, 0);
+    display.drawBitmap(96, 16, wifi[wifiLen - 1], wifiWidth, wifiHeight, 0);
   } else {
-    display.drawXBitmap(96, 16, wifi[x], wifiWidth, wifiHeight, 1);
+    display.drawBitmap(96, 16, wifi[x], wifiWidth, wifiHeight, 1);
   }
   display.display();
 }
 // 无网络
 void drawnoWifi() {
-  display.drawXBitmap(96, 16, wifi[wifiLen - 1], wifiWidth, wifiHeight, 0);
+  display.drawBitmap(96, 16, wifi[wifiLen - 1], wifiWidth, wifiHeight, 0);
   display.display();
-  display.drawXBitmap(96, 16, wifi_no, wifiWidth, wifiHeight, 1);
+  display.drawBitmap(96, 16, wifi_no, wifiWidth, wifiHeight, 1);
   display.display();
 }
 /*
@@ -155,15 +155,15 @@ void drawnoWifi() {
 void drawWifi_s(int x) {
   for (int i = 0; i < 4; i++) {
     if (i <= x) {
-      display.drawXBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini[i], miniWidth, miniHeight, 1);
+      display.drawBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini[i], miniWidth, miniHeight, 1);
     } else {
-      display.drawXBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini[i], miniWidth, miniHeight, 0);
+      display.drawBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini[i], miniWidth, miniHeight, 0);
     }
   }
 }
 void drawMiniWifi(int32_t rssi) {
   if (old_rssi >= 10) {
-    display.drawXBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini_clear, miniWidth, miniHeight, 0);
+    display.drawBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini_clear, miniWidth, miniHeight, 0);
     display.display();
   }
   if (rssi < 10) { // 查询成功
@@ -173,9 +173,9 @@ void drawMiniWifi(int32_t rssi) {
     else if (rssi >= -85 && rssi < -70) drawWifi_s(1);
     else if (rssi >= -95 && rssi < -85) drawWifi_s(0);
   } else { // 查询失败 --  错误码 31 -- NO_WIFI
-    display.drawXBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini_clear, miniWidth, miniHeight, 0);
+    display.drawBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini_clear, miniWidth, miniHeight, 0);
     display.display();
-    display.drawXBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini_no, miniWidth, miniHeight, 1);
+    display.drawBitmap(SSD1306_LCDWIDTH - miniWidth, 0, wifi_mini_no, miniWidth, miniHeight, 1);
   }
   display.display();
   old_rssi = rssi;
@@ -200,24 +200,24 @@ void drawTop() {
 int update_h = 0;
 int update_v = 0;
 void drawUpdate() { // -- 更新符号
-  display.drawXBitmap(update_h, update_v, update_mini_clear, miniWidth, miniHeight, 0);
+  display.drawBitmap(update_h, update_v, update_mini_clear, miniWidth, miniHeight, 0);
   display.display();
   for (int i = 0; i < 2; i++) {
-    display.drawXBitmap(update_h, update_v, update_mini[i], miniWidth, miniHeight, 1);
+    display.drawBitmap(update_h, update_v, update_mini[i], miniWidth, miniHeight, 1);
     display.display();
     delay(300);
   }
 }
 void drawUpdateDown() {  // 已更新
-  display.drawXBitmap(update_h, update_v, update_mini_clear, miniWidth, miniHeight, 0);
+  display.drawBitmap(update_h, update_v, update_mini_clear, miniWidth, miniHeight, 0);
   display.display();
-  display.drawXBitmap(update_h, update_v, update_mini_ok, miniWidth, miniHeight, 1);
+  display.drawBitmap(update_h, update_v, update_mini_ok, miniWidth, miniHeight, 1);
   display.display();
 }
 void drawUpdateF() {  // 更新失败
-  display.drawXBitmap(update_h, update_v, update_mini_clear, miniWidth, miniHeight, 0);
+  display.drawBitmap(update_h, update_v, update_mini_clear, miniWidth, miniHeight, 0);
   display.display();
-  display.drawXBitmap(update_h, update_v, update_mini_failure, miniWidth, miniHeight, 1);
+  display.drawBitmap(update_h, update_v, update_mini_failure, miniWidth, miniHeight, 1);
   display.display();
 }
 
@@ -310,9 +310,9 @@ void drawWeather_now(const struct UserData* userData) {
   display.println((u_date)->date_t);
   display.display();
   if (userData->weatherCode <= 38)
-    display.drawXBitmap(0, 16, weather[userData->weatherCode], weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(0, 16, weather[userData->weatherCode], weatherIconWidth, weatherIconHeight, 1);
   else {
-    display.drawXBitmap(0, 16, unknown, weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(0, 16, unknown, weatherIconWidth, weatherIconHeight, 1);
   }
   display.display();
 }
@@ -367,19 +367,19 @@ void drawWeather_daily(const struct UserData* userData) {
   display.println(getDate(userData->date_3));
 
   if (userData->date_1_code_day <= 38)
-    display.drawXBitmap(weather1_h, weather_v, weather[userData->date_1_code_day], weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(weather1_h, weather_v, weather[userData->date_1_code_day], weatherIconWidth, weatherIconHeight, 1);
   else {
-    display.drawXBitmap(weather1_h, weather_v, unknown, weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(weather1_h, weather_v, unknown, weatherIconWidth, weatherIconHeight, 1);
   }
   if (userData->date_2_code_day <= 38)
-    display.drawXBitmap(weather2_h, weather_v, weather[userData->date_2_code_day], weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(weather2_h, weather_v, weather[userData->date_2_code_day], weatherIconWidth, weatherIconHeight, 1);
   else {
-    display.drawXBitmap(weather2_h, weather_v, unknown, weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(weather2_h, weather_v, unknown, weatherIconWidth, weatherIconHeight, 1);
   }
   if (userData->date_3_code_day <= 38)
-    display.drawXBitmap(weather3_h, weather_v, weather[userData->date_3_code_day], weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(weather3_h, weather_v, weather[userData->date_3_code_day], weatherIconWidth, weatherIconHeight, 1);
   else {
-    display.drawXBitmap(date3_h, weather_v, unknown, weatherIconWidth, weatherIconHeight, 1);
+    display.drawBitmap(date3_h, weather_v, unknown, weatherIconWidth, weatherIconHeight, 1);
   }
 
   display.display();
