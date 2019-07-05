@@ -9,7 +9,7 @@
 
 ###Using library
 * [Adafruit SSD1306 Library](https://github.com/adafruit/Adafruit_SSD1306)
-* [arduino Json library](https://github.com/bblanchon/ArduinoJson)
+* [arduino Json library](https://github.com/bblanchon/ArduinoJson)  适用5.xx版本库
 * [Simple Timer library](http://playground.arduino.cc/Code/SimpleTimer)
 
 Created by [YFROBOT](www.yfrobot.com)!
